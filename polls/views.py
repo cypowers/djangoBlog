@@ -18,9 +18,10 @@ class IndexView(generic.ListView):
         published in the future).
         """
         return Question.objects.filter(
-            pub_date__lte=timezone.now()).order_by('-pub_date')[:5]
-                   #.annotate(num_choice=Count('choice')) \
-                   #.filter(num_choice__gte=2) \
+            pub_date__lte=timezone.now()) \
+                   .annotate(num_choice=Count('choice')) \
+                   .filter(num_choice__gte=2) \
+                   .order_by('-pub_date')[:5]
 
 
 class DetailView(generic.DetailView):
